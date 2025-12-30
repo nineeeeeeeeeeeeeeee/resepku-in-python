@@ -46,7 +46,7 @@
 
 ## 📁 Struktur Proyek
 
-```
+\`\`\`
 resepku/
 ├── app/                          # Next.js App Router
 │   ├── recipes/                  # Route untuk halaman resep
@@ -84,7 +84,7 @@ resepku/
 ├── package.json                  # Dependencies
 ├── tsconfig.json                 # TypeScript configuration
 └── next.config.mjs               # Next.js configuration
-```
+\`\`\`
 
 ---
 
@@ -166,7 +166,7 @@ resepku/
 - Link ke halaman detail
 
 **Props:**
-```typescript
+\`\`\`typescript
 interface Recipe {
   id: number
   title: string
@@ -175,7 +175,7 @@ interface Recipe {
   cooksnaps: number
   saves: number
 }
-```
+\`\`\`
 
 ---
 
@@ -188,7 +188,7 @@ interface Recipe {
 - Emoji reactions dengan jumlah
 
 **Props:**
-```typescript
+\`\`\`typescript
 interface Author {
   name: string
   username: string
@@ -204,7 +204,7 @@ interface RecipeMetaProps {
     applause?: number
   }
 }
-```
+\`\`\`
 
 ---
 
@@ -219,7 +219,7 @@ interface RecipeMetaProps {
 - Separator antara kategori
 
 **Props:**
-```typescript
+\`\`\`typescript
 interface Ingredient {
   item: string
   category: 'main' | 'spices'
@@ -229,7 +229,7 @@ interface RecipeIngredientsProps {
   ingredients: Ingredient[]
   servings: number
 }
-```
+\`\`\`
 
 ---
 
@@ -243,7 +243,7 @@ interface RecipeIngredientsProps {
 - Print-friendly layout
 
 **Props:**
-```typescript
+\`\`\`typescript
 interface Instruction {
   step: number
   description: string
@@ -253,7 +253,7 @@ interface Instruction {
 interface RecipeInstructionsProps {
   instructions: Instruction[]
 }
-```
+\`\`\`
 
 ---
 
@@ -293,7 +293,7 @@ interface RecipeInstructionsProps {
 **URL:** `/`
 
 **Struktur:**
-```
+\`\`\`
 ┌─────────────────────────┐
 │       Header            │
 ├─────────────────────────┤
@@ -316,7 +316,7 @@ interface RecipeInstructionsProps {
 ├─────────────────────────┤
 │    Bottom Nav           │
 └─────────────────────────┘
-```
+\`\`\`
 
 **Komponen yang Digunakan:**
 - Header
@@ -335,7 +335,7 @@ interface RecipeInstructionsProps {
 **Dynamic Route:** Menggunakan ID resep sebagai parameter
 
 **Struktur:**
-```
+\`\`\`
 ┌────────────────────────────────────┐
 │           Header                   │
 ├────────────────────────────────────┤
@@ -364,7 +364,7 @@ interface RecipeInstructionsProps {
 └────────────────────────────────────┘
 │        Bottom Nav                  │
 └────────────────────────────────────┘
-```
+\`\`\`
 
 **Komponen yang Digunakan:**
 - Header
@@ -384,7 +384,7 @@ interface RecipeInstructionsProps {
 ## 💾 Model Data
 
 ### Recipe Interface
-```typescript
+\`\`\`typescript
 interface Recipe {
   id: number
   title: string
@@ -410,24 +410,24 @@ interface Recipe {
   ingredients: Ingredient[]
   instructions: Instruction[]
 }
-```
+\`\`\`
 
 ### Ingredient Interface
-```typescript
+\`\`\`typescript
 interface Ingredient {
   item: string          // Nama bahan dan jumlahnya
   category: string      // 'main' atau 'spices'
 }
-```
+\`\`\`
 
 ### Instruction Interface
-```typescript
+\`\`\`typescript
 interface Instruction {
   step: number          // Nomor urut langkah
   description: string   // Penjelasan lengkap
   images?: string[]     // Array URL gambar (opsional)
 }
-```
+\`\`\`
 
 ---
 
@@ -458,12 +458,12 @@ interface Instruction {
 - Consistent gaps dalam grid dan card layouts
 
 ### Responsive Breakpoints
-```css
+\`\`\`css
 sm:  640px   (tablet)
 md:  768px   (landscape tablet)
 lg:  1024px  (desktop)
 xl:  1280px  (large desktop)
-```
+\`\`\`
 
 ### Design Principles
 1. **Mobile-First:** Didesain untuk mobile terlebih dahulu
@@ -518,7 +518,7 @@ xl:  1280px  (large desktop)
    - Remove shadows (no visual distractions)
 
 ### Print Layout Structure
-```
+\`\`\`
 ┌────────────────────────────┐
 │  UDANG SAUS PADANG VOL. 2  │
 │  by Febry Caturia          │
@@ -548,7 +548,7 @@ xl:  1280px  (large desktop)
 │     [Step images]          │
 │  ...                       │
 └────────────────────────────┘
-```
+\`\`\`
 
 ---
 
@@ -557,7 +557,7 @@ xl:  1280px  (large desktop)
 ### Untuk Developer
 
 #### 1. Setup Proyek
-```bash
+\`\`\`bash
 # Clone atau download project
 cd resepku
 
@@ -569,13 +569,13 @@ npm run dev
 
 # Buka browser
 # http://localhost:3000
-```
+\`\`\`
 
 #### 2. Menambah Resep Baru
 
 Edit file `app/recipes/[id]/page.tsx`, tambahkan data di object `recipeData`:
 
-```typescript
+\`\`\`typescript
 const recipeData = {
   // ... resep existing
   "3": {  // ID baru
@@ -611,13 +611,13 @@ const recipeData = {
     ]
   }
 }
-```
+\`\`\`
 
 #### 3. Menambah Resep di Homepage
 
 Edit `components/recipe-grid.tsx`, tambahkan di array `recipes`:
 
-```typescript
+\`\`\`typescript
 const recipes = [
   // ... resep existing
   {
@@ -629,18 +629,18 @@ const recipes = [
     saves: 1450,
   }
 ]
-```
+\`\`\`
 
 #### 4. Customize Styling
 
 Edit `app/globals.css` untuk mengubah warna:
 
-```css
+\`\`\`css
 :root {
   --primary: oklch(0.52 0.15 18);  /* Ubah warna primary */
   --accent: oklch(0.95 0.02 80);   /* Ubah warna accent */
 }
-```
+\`\`\`
 
 ---
 
@@ -680,7 +680,7 @@ Edit `app/globals.css` untuk mengubah warna:
 **Rekomendasi:** Supabase atau Neon (PostgreSQL)
 
 **Schema Tables:**
-```sql
+\`\`\`sql
 -- Users table
 CREATE TABLE users (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -761,12 +761,12 @@ CREATE TABLE cooksnaps (
   caption TEXT,
   created_at TIMESTAMP DEFAULT NOW()
 );
-```
+\`\`\`
 
 #### 2. API Routes
 
 **Create:** `app/api/recipes/route.ts`
-```typescript
+\`\`\`typescript
 // GET all recipes
 export async function GET(request: Request) {
   // Fetch dari database
@@ -779,10 +779,10 @@ export async function POST(request: Request) {
   // Insert ke database
   // Return success
 }
-```
+\`\`\`
 
 **Create:** `app/api/recipes/[id]/route.ts`
-```typescript
+\`\`\`typescript
 // GET single recipe
 export async function GET(
   request: Request,
@@ -795,7 +795,7 @@ export async function GET(
 
 // PUT update recipe
 // DELETE recipe
-```
+\`\`\`
 
 #### 3. Authentication
 **Rekomendasi:** Supabase Auth atau NextAuth.js
