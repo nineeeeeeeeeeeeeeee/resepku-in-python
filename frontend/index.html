@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resepku - Berbagi Resep Masakan Indonesia</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/components.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <h1 class="logo">Resepku</h1>
+                <form class="search-form" id="searchForm">
+                    <input type="text" id="searchInput" placeholder="Cari resep..." class="search-input">
+                    <button type="submit" class="search-button">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor">
+                            <circle cx="8" cy="8" r="6" stroke-width="2"/>
+                            <path d="M13 13l5 5" stroke-width="2"/>
+                        </svg>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h2 class="hero-title">Temukan Resep Favorit Anda</h2>
+            <p class="hero-subtitle">Ribuan resep masakan Indonesia siap Anda coba</p>
+        </div>
+    </section>
+
+    <!-- Trending Searches -->
+    <section class="trending-section">
+        <div class="container">
+            <h3 class="section-title">Pencarian Populer</h3>
+            <div class="trending-tags" id="trendingTags"></div>
+        </div>
+    </section>
+
+    <!-- Categories -->
+    <section class="categories-section">
+        <div class="container">
+            <h3 class="section-title">Kategori</h3>
+            <div class="category-grid" id="categoryGrid"></div>
+        </div>
+    </section>
+
+    <!-- Recipes Grid -->
+    <section class="recipes-section">
+        <div class="container">
+            <h3 class="section-title">Semua Resep</h3>
+            <div class="recipe-grid" id="recipeGrid"></div>
+        </div>
+    </section>
+
+    <!-- Loading Indicator -->
+    <div class="loading" id="loading">
+        <div class="spinner"></div>
+    </div>
+
+    <script src="scripts/config.js"></script>
+    <script src="scripts/api.js"></script>
+    <script src="scripts/main.js"></script>
+</body>
+</html>

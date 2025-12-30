@@ -2,45 +2,94 @@
 
 ## Deskripsi Proyek
 
-**Resepku** adalah platform berbagi resep masakan Indonesia yang terinspirasi dari Cookpad. Platform ini memungkinkan pengguna untuk menjelajahi, mencari, dan melihat detail resep masakan dengan antarmuka yang responsif dan ramah pengguna.
+**Resepku** adalah platform berbagi resep masakan Indonesia yang terinspirasi dari Cookpad. Platform ini dibangun dengan arsitektur hybrid menggunakan **Python Flask** untuk backend API dan **HTML/CSS/JavaScript murni** untuk frontend.
+
+**Kenapa Arsitektur Hybrid?**
+- Backend menggunakan Python sesuai dengan requirement tugas
+- Frontend tetap berjalan di browser dengan HTML/CSS/JS
+- Komunikasi melalui REST API
+- Pemisahan yang jelas antara logic dan presentation layer
 
 ---
 
 ## 📋 Daftar Isi
 
-1. [Teknologi yang Digunakan](#teknologi-yang-digunakan)
-2. [Struktur Proyek](#struktur-proyek)
-3. [Fitur Utama](#fitur-utama)
-4. [Komponen dan Fungsinya](#komponen-dan-fungsinya)
-5. [Halaman](#halaman)
-6. [Model Data](#model-data)
-7. [Styling dan Desain](#styling-dan-desain)
-8. [Fitur Print](#fitur-print)
-9. [Cara Penggunaan](#cara-penggunaan)
-10. [Pengembangan Lebih Lanjut](#pengembangan-lebih-lanjut)
+1. [Arsitektur Sistem](#arsitektur-sistem)
+2. [Teknologi yang Digunakan](#teknologi-yang-digunakan)
+3. [Struktur Proyek](#struktur-proyek)
+4. [Backend (Python Flask)](#backend-python-flask)
+5. [Frontend (HTML/CSS/JS)](#frontend-htmlcssjs)
+6. [API Documentation](#api-documentation)
+7. [Model Data](#model-data)
+8. [Fitur Utama](#fitur-utama)
+9. [Styling dan Desain](#styling-dan-desain)
+10. [Cara Penggunaan](#cara-penggunaan)
+11. [Deployment](#deployment)
+12. [Pengembangan Lebih Lanjut](#pengembangan-lebih-lanjut)
+
+---
+
+## 🏗️ Arsitektur Sistem
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                         CLIENT SIDE                          │
+│  ┌───────────────────────────────────────────────────────┐  │
+│  │              Browser (HTML/CSS/JS)                    │  │
+│  │  ┌─────────────┐  ┌─────────────┐  ┌──────────────┐ │  │
+│  │  │  index.html │  │ search.html │  │  recipe.html │ │  │
+│  │  └─────────────┘  └─────────────┘  └──────────────┘ │  │
+│  │                                                        │  │
+│  │  ┌─────────────────────────────────────────────────┐ │  │
+│  │  │        JavaScript (Fetch API)                   │ │  │
+│  │  └─────────────────────────────────────────────────┘ │  │
+│  └───────────────────────────────────────────────────────┘  │
+└─────────────────────────────────────────────────────────────┘
+                              │
+                              │ HTTP Requests (JSON)
+                              │
+                              ▼
+┌─────────────────────────────────────────────────────────────┐
+│                        SERVER SIDE                           │
+│  ┌───────────────────────────────────────────────────────┐  │
+│  │           Python Flask REST API                       │  │
+│  │  ┌─────────────────────────────────────────────────┐ │  │
+│  │  │  Routes:                                        │ │  │
+│  │  │  • GET  /api/recipes                           │ │  │
+│  │  │  • GET  /api/recipes/:id                       │ │  │
+│  │  │  • GET  /api/search?q=query                    │ │  │
+│  │  │  • GET  /api/categories/:category              │ │  │
+│  │  │  • GET  /api/categories                        │ │  │
+│  │  │  • GET  /api/trending                          │ │  │
+│  │  └─────────────────────────────────────────────────┘ │  │
+│  │                                                        │  │
+│  │  ┌─────────────────────────────────────────────────┐ │  │
+│  │  │        Recipe Data (Python Dict/List)          │ │  │
+│  │  │        35 Resep Indonesia                      │ │  │
+│  │  └─────────────────────────────────────────────────┘ │  │
+│  └───────────────────────────────────────────────────────┘  │
+└─────────────────────────────────────────────────────────────┘
+```
 
 ---
 
 ## 🛠️ Teknologi yang Digunakan
 
-### Framework & Library
-- **Next.js 16** - Framework React dengan App Router untuk server-side rendering
-- **React 19** - Library JavaScript untuk membangun user interface
-- **TypeScript** - Superset JavaScript dengan static typing
-- **Tailwind CSS v4** - Utility-first CSS framework untuk styling
+### Backend
+- **Python 3.8+** - Bahasa pemrograman struktural
+- **Flask 3.0** - Micro web framework untuk REST API
+- **Flask-CORS** - Middleware untuk handling CORS
 
-### UI Components
-- **shadcn/ui** - Koleksi komponen UI yang dapat digunakan ulang
-- **Lucide React** - Icon library untuk React
-- **Radix UI** - Primitif UI yang accessible untuk komponen kompleks
+### Frontend
+- **HTML5** - Semantic markup untuk struktur halaman
+- **CSS3** - Modern styling dengan Flexbox dan Grid
+- **JavaScript (ES6+)** - Vanilla JS untuk interaktivitas
+- **Fetch API** - Native browser API untuk HTTP requests
 
-### Font
-- **Geist Sans** - Font utama untuk teks body
-- **Geist Mono** - Font monospace untuk kode (jika diperlukan)
-
-### Deployment
-- **Vercel** - Platform hosting dan deployment
-- **Vercel Analytics** - Analytics untuk monitoring performa
+### Tools & Environment
+- **Python HTTP Server** - Development server untuk frontend
+- **Git** - Version control
+- **VS Code** - Code editor (recommended)
 
 ---
 
@@ -48,42 +97,352 @@
 
 ```
 resepku/
-├── app/                          # Next.js App Router
-│   ├── recipes/                  # Route untuk halaman resep
-│   │   └── [id]/                 # Dynamic route untuk detail resep
-│   │       └── page.tsx          # Halaman detail resep
-│   ├── globals.css               # Global CSS dengan Tailwind & print styles
-│   ├── layout.tsx                # Root layout dengan metadata
-│   ├── page.tsx                  # Homepage
-│   └── loading.tsx               # Loading state
+├── backend/                          # Python Flask Backend
+│   ├── app.py                       # Main Flask application
+│   ├── data/
+│   │   └── recipes.py               # Recipe data (35 resep)
+│   ├── requirements.txt             # Python dependencies
+│   └── README.md                    # Backend documentation
 │
-├── components/                   # React components
-│   ├── ui/                       # shadcn/ui base components
-│   │   ├── button.tsx
-│   │   ├── card.tsx
-│   │   ├── badge.tsx
-│   │   ├── separator.tsx
-│   │   └── ... (50+ komponen lainnya)
+├── frontend/                        # Static HTML/CSS/JS
+│   ├── index.html                  # Homepage
+│   ├── recipe.html                 # Recipe detail page
+│   ├── search.html                 # Search results page
 │   │
-│   ├── header.tsx                # Header navigasi dengan search
-│   ├── search-section.tsx        # Search bar untuk mobile
-│   ├── trending-searches.tsx     # Keyword pencarian populer
-│   ├── recipe-grid.tsx           # Grid layout untuk daftar resep
-│   ├── recipe-card.tsx           # Card individual resep
-│   ├── recipe-meta.tsx           # Info author dan reactions
-│   ├── recipe-ingredients.tsx    # Daftar bahan-bahan
-│   ├── recipe-instructions.tsx   # Langkah-langkah memasak
-│   ├── premium-section.tsx       # Section premium
-│   └── bottom-nav.tsx            # Bottom navigation bar
+│   ├── styles/                     # CSS Stylesheets
+│   │   ├── main.css               # Main styles & layout
+│   │   ├── components.css         # Component styles
+│   │   └── recipe-detail.css      # Recipe detail styles
+│   │
+│   ├── scripts/                    # JavaScript Files
+│   │   ├── config.js              # API configuration
+│   │   ├── api.js                 # API helper functions
+│   │   ├── main.js                # Homepage logic
+│   │   ├── search.js              # Search page logic
+│   │   └── recipe-detail.js       # Detail page logic
+│   │
+│   └── README.md                   # Frontend documentation
 │
-├── public/                       # Static assets
-│   ├── images/                   # Gambar resep dan user avatars
-│   └── icons/                    # Icons dan favicons
+├── public/                          # Static Assets (images)
+│   ├── rendang-daging-sapi.jpg
+│   ├── soto-ayam-lamongan.jpg
+│   └── ... (35 gambar resep)
 │
-├── DOCUMENTATION.md              # File dokumentasi ini
-├── package.json                  # Dependencies
-├── tsconfig.json                 # TypeScript configuration
-└── next.config.mjs               # Next.js configuration
+├── DOCUMENTATION.md                 # File ini
+└── README.md                        # Project README
+```
+
+---
+
+## 🐍 Backend (Python Flask)
+
+### File: `backend/app.py`
+
+**Fungsi Utama:**
+Menyediakan REST API untuk frontend mengakses data resep.
+
+**Routes yang Tersedia:**
+
+#### 1. Get All Recipes
+```python
+@app.route('/api/recipes', methods=['GET'])
+def get_all_recipes():
+    return jsonify(recipes_data)
+```
+**Response:** Array of all 35 recipes
+
+#### 2. Get Recipe by ID
+```python
+@app.route('/api/recipes/<int:recipe_id>', methods=['GET'])
+def get_recipe_by_id(recipe_id):
+    recipe = next((r for r in recipes_data if r['id'] == recipe_id), None)
+    if recipe:
+        return jsonify(recipe)
+    return jsonify({'error': 'Recipe not found'}), 404
+```
+**Response:** Single recipe object atau error 404
+
+#### 3. Search Recipes
+```python
+@app.route('/api/search', methods=['GET'])
+def search_recipes():
+    query = request.args.get('q', '').lower()
+    # Search in title, description, ingredients, instructions
+    return jsonify(filtered_recipes)
+```
+**Response:** Array of matching recipes
+
+#### 4. Get Recipes by Category
+```python
+@app.route('/api/categories/<string:category>', methods=['GET'])
+def get_recipes_by_category(category):
+    filtered = [r for r in recipes_data if r['category'].lower() == category.lower()]
+    return jsonify(filtered)
+```
+**Response:** Array of recipes in category
+
+#### 5. Get All Categories
+```python
+@app.route('/api/categories', methods=['GET'])
+def get_categories():
+    # Return unique categories with count
+    return jsonify(category_list)
+```
+**Response:** Array of category objects
+
+#### 6. Get Trending Keywords
+```python
+@app.route('/api/trending', methods=['GET'])
+def get_trending():
+    trending = ['Rendang', 'Soto Ayam', 'Nasi Goreng', ...]
+    return jsonify(trending)
+```
+**Response:** Array of trending keywords
+
+### File: `backend/data/recipes.py`
+
+**Struktur Data:**
+```python
+recipes_data = [
+    {
+        "id": 1,
+        "title": "Rendang Daging Sapi",
+        "description": "Rendang khas Minangkabau...",
+        "image": "/rendang-daging-sapi.jpg",
+        "category": "Masakan",
+        "cookTime": "3 jam",
+        "servings": 6,
+        "saves": 1250,
+        "cooksnaps": 430,
+        "author": {
+            "name": "Bunda Sari",
+            "username": "bundasari",
+            "location": "Padang",
+            "avatar": "/diverse-user-avatars.png"
+        },
+        "ingredients": [
+            {
+                "category": "Bahan Utama",
+                "items": [
+                    {"item": "1 kg daging sapi", "amount": "1 kg"},
+                    # ...
+                ]
+            }
+        ],
+        "instructions": [
+            {
+                "step": 1,
+                "text": "Tumis bumbu halus...",
+                "image": None
+            }
+        ]
+    },
+    # ... 34 resep lainnya
+]
+```
+
+**Isi Data:**
+- 20 Resep Masakan Indonesia
+- 10 Resep Minuman Indonesia
+- 5 Resep Jajanan Indonesia
+
+---
+
+## 🌐 Frontend (HTML/CSS/JS)
+
+### Halaman-Halaman
+
+#### 1. Homepage (`index.html`)
+**Struktur:**
+- Header dengan logo dan search bar
+- Hero section dengan judul
+- Trending searches (keyword populer)
+- Categories section
+- Recipe grid (semua resep)
+
+**JavaScript (`main.js`):**
+```javascript
+// Load trending keywords
+async function loadTrending() {
+  const trending = await API.getTrending()
+  // Render trending tags
+}
+
+// Load all recipes
+async function loadRecipes() {
+  const recipes = await API.getAllRecipes()
+  // Render recipe cards
+}
+```
+
+#### 2. Search Page (`search.html`)
+**Fungsi:** Menampilkan hasil pencarian atau filter kategori
+
+**JavaScript (`search.js`):**
+```javascript
+// Get query from URL
+const urlParams = new URLSearchParams(window.location.search)
+const query = urlParams.get('q')
+const category = urlParams.get('category')
+
+// Load results
+if (category) {
+  await loadCategoryResults(category)
+} else if (query) {
+  await loadSearchResults(query)
+}
+```
+
+#### 3. Recipe Detail Page (`recipe.html`)
+**Fungsi:** Menampilkan detail lengkap resep
+
+**Sections:**
+- Header image dengan action buttons
+- Recipe metadata (waktu, porsi, stats)
+- Author information
+- Ingredients list (grouped by category)
+- Step-by-step instructions
+- Print button functionality
+
+**JavaScript (`recipe-detail.js`):**
+```javascript
+// Get recipe ID from URL
+const recipeId = new URLSearchParams(window.location.search).get('id')
+
+// Load recipe data
+const recipe = await API.getRecipeById(recipeId)
+
+// Render recipe detail
+document.getElementById('recipeDetail').innerHTML = createRecipeDetail(recipe)
+
+// Add print functionality
+document.getElementById('printButton').addEventListener('click', () => {
+  window.print()
+})
+```
+
+### CSS Architecture
+
+#### `styles/main.css`
+- CSS Variables untuk theming
+- Layout dasar (container, header, sections)
+- Typography system
+- Responsive breakpoints
+- Loading states
+
+**Color Palette:**
+```css
+:root {
+  --primary: #d97706;        /* Orange untuk food */
+  --secondary: #059669;      /* Green untuk fresh */
+  --background: #ffffff;
+  --surface: #f8fafc;
+  --text: #0f172a;
+  --border: #e2e8f0;
+}
+```
+
+#### `styles/components.css`
+- Category cards
+- Recipe cards
+- Recipe grid layout
+- Trending tags
+- Search results
+
+#### `styles/recipe-detail.css`
+- Recipe header dengan image
+- Ingredients list styling
+- Instructions with step numbers
+- Print-specific styles (`@media print`)
+
+---
+
+## 📡 API Documentation
+
+### Base URL
+```
+http://localhost:5000/api
+```
+
+### Endpoints
+
+| Method | Endpoint | Description | Parameters |
+|--------|----------|-------------|------------|
+| GET | `/recipes` | Get all recipes | - |
+| GET | `/recipes/:id` | Get single recipe | `id` (path param) |
+| GET | `/search` | Search recipes | `q` (query param) |
+| GET | `/categories/:category` | Get recipes by category | `category` (path param) |
+| GET | `/categories` | Get all categories | - |
+| GET | `/trending` | Get trending keywords | - |
+| GET | `/health` | Health check | - |
+
+### Response Examples
+
+**GET /api/recipes**
+```json
+[
+  {
+    "id": 1,
+    "title": "Rendang Daging Sapi",
+    "description": "Rendang khas Minangkabau yang empuk dan penuh rempah",
+    "image": "/rendang-daging-sapi.jpg",
+    "category": "Masakan",
+    "cookTime": "3 jam",
+    "servings": 6,
+    "saves": 1250,
+    "cooksnaps": 430,
+    "author": {
+      "name": "Bunda Sari",
+      "username": "bundasari",
+      "location": "Padang",
+      "avatar": "/diverse-user-avatars.png"
+    },
+    "ingredients": [...],
+    "instructions": [...]
+  },
+  // ... more recipes
+]
+```
+
+**GET /api/recipes/1**
+```json
+{
+  "id": 1,
+  "title": "Rendang Daging Sapi",
+  // ... full recipe details
+}
+```
+
+**GET /api/search?q=rendang**
+```json
+[
+  {
+    "id": 1,
+    "title": "Rendang Daging Sapi",
+    // ... matching recipe
+  }
+]
+```
+
+**GET /api/categories**
+```json
+[
+  {
+    "name": "Masakan",
+    "slug": "masakan",
+    "count": 20
+  },
+  {
+    "name": "Minuman",
+    "slug": "minuman",
+    "count": 10
+  },
+  {
+    "name": "Jajanan",
+    "slug": "jajanan",
+    "count": 5
+  }
+]
 ```
 
 ---
